@@ -13,7 +13,13 @@ public class UserEntityJsonMapper {
         this.gson = new Gson();
     }
 
-    public UserEntity transformUserEntity(String userJsonRespone) {
-        return gson.fromJson(userJsonRespone, UserEntity.class);
+    /**
+     * 将json数据转换成UserEntity实体
+     *
+     * @param userJsonResponse json数据
+     * @return UserEntity
+     */
+    public UserEntity transformUserEntity(String userJsonResponse) {
+        return gson.fromJson(userJsonResponse, UserEntity.class);
     }
 }
