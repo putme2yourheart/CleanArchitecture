@@ -165,4 +165,26 @@ public class User {
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
     }
+
+    @Override
+    public String toString() {
+        return
+                "login='" + login + '\'' + '\n' +
+                "id=" + id + '\n' +
+                "avatar_url='" + avatar_url + '\'' + '\n' +
+                "url='" + url + '\'' + '\n' +
+                "html_url='" + html_url + '\'' + '\n' +
+                "followers_url='" + followers_url + '\'' + '\n' +
+                "following_url='" + following_url + '\'' + '\n' +
+                "starred_url='" + starred_url + '\'' + '\n' +
+                "repos_url='" + repos_url + '\'' + '\n' +
+                "type='" + type + '\'' + '\n' +
+                "name='" + name + '\'' + '\n' +
+                "email='" + email + '\'' + '\n' +
+                "public_repos=" + public_repos + '\n' +
+                "followers=" + followers + '\n' +
+                "following=" + following + '\n' +
+                "created_at='" + created_at + '\'' + '\n' +
+                "updated_at='" + updated_at + '\'' + '\n';
+    }
 }

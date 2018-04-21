@@ -18,6 +18,7 @@ public class UserDetailsPresenter implements Presenter {
     // 加载数据并控制view显示隐藏
     public void loadUserDetails(String user) {
         userDetailsView.hideLoading();
+        userDetailsView.showLoading();
         getUserDetails(user);
     }
 
@@ -46,7 +47,7 @@ public class UserDetailsPresenter implements Presenter {
 
         @Override
         public void onSubscribe(Disposable d) {
-            userDetailsView.showLoading();
+
         }
 
         @Override
