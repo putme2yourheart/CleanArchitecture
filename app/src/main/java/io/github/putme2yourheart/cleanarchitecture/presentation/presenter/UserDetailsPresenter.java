@@ -1,5 +1,7 @@
 package io.github.putme2yourheart.cleanarchitecture.presentation.presenter;
 
+import javax.inject.Inject;
+
 import io.github.putme2yourheart.cleanarchitecture.domain.User;
 import io.github.putme2yourheart.cleanarchitecture.domain.interactor.UserDetailsUseCase;
 import io.github.putme2yourheart.cleanarchitecture.view.UserDetailsView;
@@ -10,9 +12,14 @@ public class UserDetailsPresenter implements Presenter {
     UserDetailsView userDetailsView;
     UserDetailsUseCase userDetailsUseCase;
 
-    public UserDetailsPresenter(UserDetailsView userDetailsView, UserDetailsUseCase userDetailsUseCase) {
-        this.userDetailsView = userDetailsView;
+    @Inject
+    public UserDetailsPresenter(UserDetailsUseCase userDetailsUseCase) {
         this.userDetailsUseCase = userDetailsUseCase;
+    }
+
+    // 绑定view
+    public void setView(UserDetailsView userDetailsView) {
+        this.userDetailsView = userDetailsView;
     }
 
     // 加载数据并控制view显示隐藏

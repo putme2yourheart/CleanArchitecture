@@ -6,7 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 public class FileManager {
+
+    @Inject
     public FileManager() {
     }
 

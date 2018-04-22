@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.io.File;
 
+import javax.inject.Inject;
+
 import io.github.putme2yourheart.cleanarchitecture.data.cache.serializer.FileManager;
 import io.github.putme2yourheart.cleanarchitecture.data.cache.serializer.Serializer;
 import io.github.putme2yourheart.cleanarchitecture.data.entity.UserEntity;
@@ -23,6 +25,7 @@ public class UserCacheImpl implements UserCache {
     private FileManager fileManager;
     private Serializer serializer;
 
+    @Inject
     public UserCacheImpl(Context context, FileManager fileManager, Serializer serializer) {
         this.fileManager = fileManager;
         this.serializer = serializer;

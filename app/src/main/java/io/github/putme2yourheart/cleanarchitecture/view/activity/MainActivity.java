@@ -13,17 +13,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.putme2yourheart.cleanarchitecture.App;
 import io.github.putme2yourheart.cleanarchitecture.R;
-import io.github.putme2yourheart.cleanarchitecture.data.cache.UserCacheImpl;
-import io.github.putme2yourheart.cleanarchitecture.data.cache.serializer.FileManager;
-import io.github.putme2yourheart.cleanarchitecture.data.cache.serializer.Serializer;
-import io.github.putme2yourheart.cleanarchitecture.data.repository.UserDataRepository;
-import io.github.putme2yourheart.cleanarchitecture.data.repository.datasource.UserDataStoreFactory;
 import io.github.putme2yourheart.cleanarchitecture.domain.User;
-import io.github.putme2yourheart.cleanarchitecture.domain.interactor.UserDetailsUseCase;
+import io.github.putme2yourheart.cleanarchitecture.internal.di.component.DaggerMainActivityComponent;
+import io.github.putme2yourheart.cleanarchitecture.internal.di.module.MainActivityModule;
 import io.github.putme2yourheart.cleanarchitecture.presentation.presenter.UserDetailsPresenter;
 import io.github.putme2yourheart.cleanarchitecture.view.UserDetailsView;
 
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements UserDetailsView {
     @BindView(R.id.tv_user_details)
     TextView tv_user_details;
 
+    @Inject
     UserDetailsPresenter userDetailsPresenter;
 
     @Override
@@ -48,9 +48,15 @@ public class MainActivity extends AppCompatActivity implements UserDetailsView {
 
         checkPermission();
 
-        userDetailsPresenter = new UserDetailsPresenter(this,
-                new UserDetailsUseCase(new UserDataRepository(new UserDataStoreFactory(
-                        new UserCacheImpl(this, new FileManager(), new Serializer())))));
+        DaggerMainActivityComponent.builder()
+                .appComponent(((App)getApplication()).getAppComponent())
+                .mainActivityModule(new MainActivityModule())
+                .build()
+                .inject(this);
+//        userDetailsPresenter = new UserDetailsPresenter(this,
+//                new UserDetailsUseCase(new UserDataRepository(new UserDataStoreFactory(
+//                        new UserCacheImpl(this, new FileManager(), new Serializer())))));
+        userDetailsPresenter.setView(this);
     }
 
     @Override

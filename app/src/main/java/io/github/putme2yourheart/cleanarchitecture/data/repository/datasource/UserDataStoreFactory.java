@@ -1,5 +1,7 @@
 package io.github.putme2yourheart.cleanarchitecture.data.repository.datasource;
 
+import javax.inject.Inject;
+
 import io.github.putme2yourheart.cleanarchitecture.data.cache.UserCache;
 import io.github.putme2yourheart.cleanarchitecture.data.mapper.UserEntityJsonMapper;
 import io.github.putme2yourheart.cleanarchitecture.data.net.RestApi;
@@ -8,6 +10,7 @@ import io.github.putme2yourheart.cleanarchitecture.data.net.RestApiImpl;
 public class UserDataStoreFactory {
     private UserCache userCache;
 
+    @Inject
     public UserDataStoreFactory(UserCache userCache) {
         this.userCache = userCache;
     }

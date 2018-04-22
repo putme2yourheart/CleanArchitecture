@@ -2,10 +2,13 @@ package io.github.putme2yourheart.cleanarchitecture.data.cache.serializer;
 
 import com.google.gson.Gson;
 
+import javax.inject.Inject;
+
 public class Serializer {
 
     private final Gson gson;
 
+    @Inject
     public Serializer() {
         gson = new Gson();
     }
