@@ -19,13 +19,11 @@ public class UserCacheImpl implements UserCache {
     // 过期时间
     private final long EXPIRATION_TIME = 60 * 1000 * 10;
 
-    private Context context;
     private final File cacheDir;
     private FileManager fileManager;
     private Serializer serializer;
 
     public UserCacheImpl(Context context, FileManager fileManager, Serializer serializer) {
-        this.context = context;
         this.fileManager = fileManager;
         this.serializer = serializer;
         this.cacheDir = context.getCacheDir();
