@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -20,11 +22,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.putme2yourheart.cleanarchitecture.App;
 import io.github.putme2yourheart.cleanarchitecture.R;
+import io.github.putme2yourheart.cleanarchitecture.data.entity.RepoEntity;
+import io.github.putme2yourheart.cleanarchitecture.data.mapper.RepoEntityJsonMapper;
+import io.github.putme2yourheart.cleanarchitecture.data.mapper.UserEntityJsonMapper;
+import io.github.putme2yourheart.cleanarchitecture.data.net.RestApi;
+import io.github.putme2yourheart.cleanarchitecture.data.net.RestApiImpl;
 import io.github.putme2yourheart.cleanarchitecture.domain.User;
 import io.github.putme2yourheart.cleanarchitecture.internal.di.component.DaggerMainActivityComponent;
 import io.github.putme2yourheart.cleanarchitecture.internal.di.module.MainActivityModule;
 import io.github.putme2yourheart.cleanarchitecture.presentation.presenter.UserDetailsPresenter;
 import io.github.putme2yourheart.cleanarchitecture.view.UserDetailsView;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements UserDetailsView {
     @BindView(R.id.et_user)
@@ -57,6 +68,32 @@ public class MainActivity extends AppCompatActivity implements UserDetailsView {
 //                new UserDetailsUseCase(new UserDataRepository(new UserDataStoreFactory(
 //                        new UserCacheImpl(this, new FileManager(), new Serializer())))));
         userDetailsPresenter.setView(this);
+
+        RestApi restApi = new RestApiImpl(new UserEntityJsonMapper(), new RepoEntityJsonMapper());
+        restApi.getRepoList("putme2yourheart")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<RepoEntity>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<RepoEntity> repoEntities) {
+                        Log.e("list", repoEntities.size() + "");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override

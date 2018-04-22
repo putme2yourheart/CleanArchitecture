@@ -9,10 +9,12 @@ import io.github.putme2yourheart.cleanarchitecture.data.net.RestApiImpl;
 
 public class UserDataStoreFactory {
     private UserCache userCache;
+    private RestApi restApi;
 
     @Inject
-    public UserDataStoreFactory(UserCache userCache) {
+    public UserDataStoreFactory(UserCache userCache, RestApi restApi) {
         this.userCache = userCache;
+        this.restApi = restApi;
     }
 
     /**
@@ -35,8 +37,6 @@ public class UserDataStoreFactory {
      * @return UserDataStore
      */
     private UserDataStore createCloudDataStore() {
-        final UserEntityJsonMapper userEntityJsonMapper = new UserEntityJsonMapper();
-        final RestApi restApi = new RestApiImpl(userEntityJsonMapper);
         return new CloudUserDataStore(restApi, userCache);
     }
 }
