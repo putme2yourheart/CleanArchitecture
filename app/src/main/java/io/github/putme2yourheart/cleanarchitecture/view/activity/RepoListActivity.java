@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import butterknife.BindView;
@@ -21,11 +22,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class RepoListActivity extends AppCompatActivity implements RepoListView {
+  @BindView(R.id.toolbar) Toolbar mToolbar;
   @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
   @BindView(R.id.progressBar) ProgressBar mProgressBar;
 
-  @Inject
-  RepoListPresenter mRepoListPresenter;
+  @Inject RepoListPresenter mRepoListPresenter;
   private RepoListAdapter mRepoListAdapter;
   private List<RepoEntity> mRepoEntityList = new ArrayList<>();
 
@@ -34,6 +35,18 @@ public class RepoListActivity extends AppCompatActivity implements RepoListView 
     setContentView(R.layout.activity_repo_list);
 
     ButterKnife.bind(this);
+
+    setSupportActionBar(mToolbar);
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setHomeButtonEnabled(true);
+    }
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        finish();
+      }
+    });
 
     DaggerRepoListActivityComponent.create().inject(this);
 

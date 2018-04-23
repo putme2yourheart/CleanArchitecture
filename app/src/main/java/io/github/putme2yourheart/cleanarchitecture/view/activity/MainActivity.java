@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import io.github.putme2yourheart.cleanarchitecture.view.UserDetailsView;
 import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements UserDetailsView {
+  @BindView(R.id.toolbar) Toolbar mToolbar;
   @BindView(R.id.et_user) EditText et_user;
   @BindView(R.id.btn_search) Button btn_search;
   @BindView(R.id.progressBar) ProgressBar progressBar;
@@ -39,6 +41,11 @@ public class MainActivity extends AppCompatActivity implements UserDetailsView {
     setContentView(R.layout.activity_main);
 
     ButterKnife.bind(this);
+
+    setSupportActionBar(mToolbar);
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setHomeButtonEnabled(true);
+    }
 
     checkPermission();
 
