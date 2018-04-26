@@ -8,7 +8,7 @@ public interface UserCache {
     /**
      * 从缓存获取用户信息
      *
-     * @param user 用户名
+     * @param user 用户名   
      */
     Observable<UserEntity> get(final String user);
 
