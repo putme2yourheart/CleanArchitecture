@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements UserDetailsView {
   @BindView(R.id.btn_search_repos)
   Button btn_search_repos;
 
-
-  // Inject
   @Inject UserDetailsPresenter userDetailsPresenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
