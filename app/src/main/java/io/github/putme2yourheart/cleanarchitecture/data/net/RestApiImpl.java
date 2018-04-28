@@ -1,8 +1,5 @@
 package io.github.putme2yourheart.cleanarchitecture.data.net;
 
-import java.io.IOException;
-import java.util.List;
-
 import io.github.putme2yourheart.cleanarchitecture.data.entity.RepoEntity;
 import io.github.putme2yourheart.cleanarchitecture.data.entity.UserEntity;
 import io.github.putme2yourheart.cleanarchitecture.data.mapper.RepoEntityJsonMapper;
@@ -10,6 +7,8 @@ import io.github.putme2yourheart.cleanarchitecture.data.mapper.UserEntityJsonMap
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import java.io.IOException;
+import java.util.List;
 
 public class RestApiImpl implements RestApi {
     private final UserEntityJsonMapper userEntityJsonMapper;
@@ -38,18 +37,20 @@ public class RestApiImpl implements RestApi {
 
     @Override
     public Observable<List<RepoEntity>> getRepoList(final String user) {
-        return Observable.create(new ObservableOnSubscribe<List<RepoEntity>>() {
-            @Override
-            public void subscribe(ObservableEmitter<List<RepoEntity>> emitter) throws Exception {
-                String repoEntitiesJson = getReposFromApi(user);
-                if (repoEntitiesJson != null) {
-                    emitter.onNext(repoEntityJsonMapper.transformRepoEntity(repoEntitiesJson));
-                } else {
-                    emitter.onError(new Exception());
-                }
-                emitter.onComplete();
-            }
-        });
+        //return Observable.create(new ObservableOnSubscribe<List<RepoEntity>>() {
+        //    @Override
+        //    public void subscribe(ObservableEmitter<List<RepoEntity>> emitter) throws Exception {
+                //String repoEntitiesJson = getReposFromApi(user);
+                //if (repoEntitiesJson != null) {
+                //    emitter.onNext(repoEntityJsonMapper.transformRepoEntity(repoEntitiesJson));
+                //} else {
+                //    emitter.onError(new Exception());
+                //}
+                //emitter.onComplete();
+            //}
+        //});
+        GithubService githubService = ApiService.create(RestApi.GITHUB_RUL).create(GithubService.class);
+        return githubService.listReposRx(user);
     }
 
     private String getUserDetailsFromApi(String user) {
