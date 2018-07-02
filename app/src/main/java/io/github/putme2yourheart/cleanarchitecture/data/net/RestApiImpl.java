@@ -28,6 +28,7 @@ public class RestApiImpl implements RestApi {
                 if (userEntityJson != null) {
                     emitter.onNext(userEntityJsonMapper.transformUserEntity(userEntityJson));
                 } else {
+                    // aa
                     emitter.onError(new Exception());
                 }
                 emitter.onComplete();
