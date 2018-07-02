@@ -31,6 +31,8 @@ public class RestApiImpl implements RestApi {
                     // aa
                     emitter.onError(new Exception());
                 }
+
+                // bb
                 emitter.onComplete();
             }
         });
